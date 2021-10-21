@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: client-deployment
+
+spec:
+  replicas: 3    # creating 1 pod wit all the next template down here
+  
+  selector:
+    matchLabels:
+      component: web
+
+  template:
+    metadata:
+      labels:
+        component: web
+    
+    spec:
+      containers:
+        - name: client
+          image: ggabmc/multi-client
+          ports:
+            - containerPort: 3000

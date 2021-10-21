@@ -1,0 +1,15 @@
+apiVersion: v1
+
+kind: Service   # Services = sets up networking in a kubernetes cluster
+
+metadata:
+  name: client-node-port
+
+spec:
+  type: NodePort
+  ports:                # If Other POD needs to access to multi-client POD it will communicate through port
+    - port: 3050        # port that comunicates to another pod of another container. 
+      targetPort: 3000  # targeting the container "client" on port 3000 
+      nodePort: 31515   # for development purposes not for prod env, we dont want google.com:31515 for example
+  selector:
+    component: web   # is mapped with the labels - component : web on client-pod
